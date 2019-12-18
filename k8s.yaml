@@ -1,0 +1,94 @@
+# BE CAREFUL MODIFYING THIS FILE
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: registry
+spec:
+  selector:
+    matchLabels:
+      app: registry
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        app: registry
+    spec:
+      containers:
+      - name: registry
+        image: gcr.io/gems-org/registry:VERSION
+        command: ["./registry"]
+        args: ["--env=production"]
+        env:
+        - name: REGISTRY_DB_HOST
+          value: "cloudsql-proxy"
+        - name: REGISTRY_DB_PORT
+          value: "3306"
+        - name: REGISTRY_DB_NAME
+          value: "registry"
+        - name: REGISTRY_DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: registry-data
+              key: REGISTRY_DB_USER
+        - name: REGISTRY_DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: registry-data
+              key: REGISTRY_DB_PASSWORD
+        - name: JWT_SECRET
+          valueFrom:
+            configMapKeyRef:
+              name: registry-data
+              key: JWT_SECRET
+        ports: 
+        - containerPort: 8184
+        resources: {}
+      
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: registry-migration
+spec:
+  ttlSecondsAfterFinished: 100
+  template:
+    metadata:
+      labels:
+        app: registry-migration
+    spec:
+      containers:
+      - name: registry-migration
+        image: gcr.io/gems-org/registry-migration:VERSION
+        args: ["composeup"]
+        env:
+        - name: REGISTRY_DB_HOST
+          value: "cloudsql-proxy"
+        - name: REGISTRY_DB_PORT
+          value: "3306"
+        - name: REGISTRY_DB_NAME
+          value: "registry"
+        - name: REGISTRY_DB_USER
+          valueFrom:
+            configMapKeyRef:
+              name: registry-data
+              key: REGISTRY_DB_USER
+        - name: REGISTRY_DB_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: registry-data
+              key: REGISTRY_DB_PASSWORD
+      restartPolicy: Never
+  backoffLimit: 4
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: registry
+spec:
+  selector:
+    app: registry
+  ports:
+  - port: 80
+    targetPort: 8184
+  type: LoadBalancer

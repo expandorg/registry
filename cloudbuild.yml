@@ -1,0 +1,9 @@
+# BE CAREFUL MODIFYING THIS FILE
+# This is run on every push, it only runs testing. 
+# Please don't add any build/push/deploy steps.
+# Use cloudbuild.cd.yaml for that.
+steps:
+  - id: Test
+    name: 'gcr.io/cloud-builders/go'
+    args: ['test','./...']
+    env: ['PROJECT_ROOT=github.com/gemsorg/registry']

@@ -1,0 +1,57 @@
+# BE CAREFUL MODIFYING THIS FILE
+# This is only run on Master pushes. It has our continous delivery steps.
+# Please be careful modifying these.
+steps:
+  # This step runs the unit tests on the app
+  - id: Test
+    name: 'gcr.io/cloud-builders/go'
+    args: ['test','./...']
+    env: ['PROJECT_ROOT=github.com/gemsorg/registry']
+  # # This step builds the container image
+  - id: Build
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '--tag=gcr.io/$PROJECT_ID/registry:$SHORT_SHA', '.']
+  - id: BuildMigration
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['build', '--tag=gcr.io/$PROJECT_ID/registry-migration:$SHORT_SHA', 'migrations']
+  # # This step pushes the image to Container Registry
+  # # The PROJECT_ID and SHORT_SHA variables are automatically
+  # # replaced by Cloud Build.
+  - id: Push To Registry
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/registry:$SHORT_SHA']
+  - id: PushMigration 
+    name: 'gcr.io/cloud-builders/docker'
+    args: ['push', 'gcr.io/$PROJECT_ID/registry-migration:$SHORT_SHA']
+    
+  # This step deploys the new version of our container image
+  # in the Kubernetes Engine cluster.
+  - id: Generate Kuberentes Manifest
+    name: 'gcr.io/cloud-builders/gcloud'
+    entrypoint: /bin/sh
+    args:
+    - '-c'
+    - |
+      sed "s/VERSION/${SHORT_SHA}/g" k8s.yaml > kubernetes.yaml
+  
+  # Jobs image field is immutable, we delete and recreate it with new
+  # image.
+  - id: Delete Migration Job
+    name: 'gcr.io/cloud-builders/kubectl'
+    args:
+    - 'delete'
+    - 'job'
+    - 'registry-migration'
+    env:
+    - CLOUDSDK_COMPUTE_ZONE=us-central1-a
+    - CLOUDSDK_CONTAINER_CLUSTER=api
+    
+  - id: Deploy
+    name: 'gcr.io/cloud-builders/kubectl'
+    args:
+    - 'apply'
+    - '-f'
+    - 'kubernetes.yaml'
+    env:
+    - CLOUDSDK_COMPUTE_ZONE=us-central1-a
+    - CLOUDSDK_CONTAINER_CLUSTER=api
