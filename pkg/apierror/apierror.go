@@ -36,3 +36,11 @@ func (a *APIError) StatusCode() int {
 func (a *APIError) Error() string {
 	return fmt.Sprintf("Status: %d, Message: [%s]:%s", a.statusCode, a.Message, a.error)
 }
+
+type ErrBadRouting struct {
+	Param string
+}
+
+func (err *ErrBadRouting) Error() string {
+	return fmt.Sprintf("missing %s", err.Param)
+}
