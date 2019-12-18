@@ -6,7 +6,7 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gemsorg/dispute/pkg/apierror"
+	"github.com/gemsorg/registry/pkg/apierror"
 	service "github.com/gemsorg/registry/pkg/service"
 	kithttp "github.com/go-kit/kit/transport/http"
 	"github.com/gorilla/mux"
@@ -34,7 +34,7 @@ func decodeRegistrationFetcherRequest(_ context.Context, r *http.Request) (inter
 	}
 	id, err := strconv.ParseUint(jobID, 10, 64)
 	if err != nil {
-		return nil, errorResponse(&apierror.ErrBadRouting{Param: "dispute_id"})
+		return nil, errorResponse(&apierror.ErrBadRouting{Param: "job_id"})
 	}
 	dr.JobID = id
 	return dr, nil
