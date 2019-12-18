@@ -8,6 +8,7 @@ import (
 	"github.com/jmoiron/sqlx"
 
 	"github.com/gemsorg/registry/pkg/api/healthchecker"
+	"github.com/gemsorg/registry/pkg/api/registrationfetcher"
 	"github.com/gemsorg/registry/pkg/service"
 	"github.com/gorilla/mux"
 )
@@ -19,6 +20,7 @@ func New(
 	r := mux.NewRouter()
 
 	r.Handle("/_health", healthchecker.MakeHandler(s)).Methods("GET")
+	r.Handle("/registrations/{job_id}", registrationfetcher.MakeHandler(s)).Methods("GET")
 	r.Use(authentication.AuthMiddleware)
 	return withHandlers(r)
 }
