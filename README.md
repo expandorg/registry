@@ -1,6 +1,20 @@
 # Registry Service
  
 Backend service for job external services registry
+## Description
+
+Each job can register its own external services. These services are stored as json, taking the following shape:
+
+```
+{
+  "AssignmentValidator": {
+    "url": "https://us-central1-gems-org.cloudfunctions.net/validate"
+  },
+  "AssignmentCreator": {
+    "url": "https://us-central1-gems-org.cloudfunctions.net/create"
+  }  
+}
+```
 
 ## Getting started 
 

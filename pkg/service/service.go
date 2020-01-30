@@ -10,7 +10,7 @@ import (
 type RegistryService interface {
 	Healthy() bool
 	SetAuthData(data authentication.AuthData)
-	GetJobRegistrations(jobID uint64) (registration.Registrations, error)
+	GetJobRegistration(jobID uint64) (registration.Registration, error)
 }
 
 type service struct {
@@ -33,6 +33,6 @@ func (s *service) SetAuthData(data authentication.AuthData) {
 	s.authorizor.SetAuthData(data)
 }
 
-func (s *service) GetJobRegistrations(jobID uint64) (registration.Registrations, error) {
-	return s.store.GetJobRegistrations(jobID)
+func (s *service) GetJobRegistration(jobID uint64) (registration.Registration, error) {
+	return s.store.GetJobRegistration(jobID)
 }
