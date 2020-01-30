@@ -2,6 +2,7 @@ package registrationfetcher
 
 import (
 	"context"
+	"encoding/json"
 
 	"github.com/gemsorg/registry/pkg/apierror"
 	service "github.com/gemsorg/registry/pkg/service"
@@ -13,11 +14,15 @@ func makeRegistrationFetcherEndpoint(svc service.RegistryService) endpoint.Endpo
 	return func(_ context.Context, request interface{}) (interface{}, error) {
 		req := request.(JobRegistrationRequest)
 
-		registrations, err := svc.GetJobRegistrations(req.JobID)
+		registration, err := svc.GetJobRegistration(req.JobID)
+
 		if err != nil {
 			return nil, errorResponse(err)
 		}
-		return registrations, nil
+		if registration.ID == 0 {
+			return json.RawMessage("{}"), nil
+		}
+		return registration, nil
 	}
 }
 

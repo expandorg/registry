@@ -1,12 +1,11 @@
 package registration
 
-type Registration struct {
-	ID          uint64 `json:"id" db:"id"`
-	URL         string `json:"url" db:"url"`
-	Service     string `json:"service" db:"service"`
-	JobID       uint64 `json:"job_id" db:"job_id"`
-	RequesterID uint64 `json:"requester_id" db:"requester_id"`
-	Active      bool   `json:"active" db:"active"`
-}
+import "encoding/json"
 
-type Registrations []Registration
+type Registration struct {
+	ID          uint64          `json:"id" db:"id"`
+	JobID       uint64          `json:"job_id" db:"job_id"`
+	APIKeyID    string          `json:"api_key_id" db:"api_key_id"`
+	Services    json.RawMessage `json:"services" db:"services"`
+	RequesterID uint64          `json:"requester_id" db:"requester_id"`
+}

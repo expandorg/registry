@@ -6,7 +6,7 @@ import (
 )
 
 type Storage interface {
-	GetJobRegistrations(jobID uint64) (registration.Registrations, error)
+	GetJobRegistration(jobID uint64) (registration.Registration, error)
 }
 
 type RegistryStore struct {
@@ -19,13 +19,18 @@ func NewRegistryStore(db *sqlx.DB) *RegistryStore {
 	}
 }
 
-func (rs *RegistryStore) GetJobRegistrations(jobID uint64) (registration.Registrations, error) {
-	reg := registration.Registrations{}
+func (rs *RegistryStore) GetJobRegistration(jobID uint64) (registration.Registration, error) {
+	reg := []registration.Registration{}
 
 	err := rs.DB.Select(&reg, "SELECT * FROM registrations WHERE job_id=?", jobID)
 
 	if err != nil {
-		return reg, err
+		return registration.Registration{}, err
 	}
-	return reg, nil
+
+	if len(reg) == 0 {
+		return registration.Registration{}, nil
+	}
+
+	return reg[0], nil
 }
