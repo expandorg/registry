@@ -20,11 +20,20 @@ spec:
         args: ["--env=staging"]
         env:
         - name: REGISTRY_DB_HOST
-          value: "cloudsql-proxy"
+          valueFrom:
+            configMapKeyRef:
+              name: registry-data
+              key: REGISTRY_DB_HOST
         - name: REGISTRY_DB_PORT
-          value: "3306"
+          valueFrom:
+            configMapKeyRef:
+              name: registry-data
+              key: REGISTRY_DB_PORT
         - name: REGISTRY_DB_NAME
-          value: "registry_staging"
+          valueFrom:
+            configMapKeyRef:
+              name: registry-data
+              key: REGISTRY_DB_NAME
         - name: REGISTRY_DB_USER
           valueFrom:
             configMapKeyRef:
