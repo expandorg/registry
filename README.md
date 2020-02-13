@@ -27,11 +27,11 @@ Each job can register its own external services. These services are stored as js
 
 Clone the repository with: 
 
-`go get -u github.com/gemsorg/registry`
+`go get -u github.com/expandorg/registry`
 
 OR 
 
-create a directory `$GOPATH/src/github/gemsorg` and execute: git clone git@github.com:gemsorg/registry.git 
+create a directory `$GOPATH/src/github/expandorg` and execute: git clone git@github.com:expandorg/registry.git 
 
 Run the project dependencies (db, etc.) with `make up`
 

@@ -3,13 +3,13 @@ package server
 import (
 	"net/http"
 
-	"github.com/gemsorg/registry/pkg/authentication"
+	"github.com/expandorg/registry/pkg/authentication"
 
 	"github.com/jmoiron/sqlx"
 
-	"github.com/gemsorg/registry/pkg/api/healthchecker"
-	"github.com/gemsorg/registry/pkg/api/registrationfetcher"
-	"github.com/gemsorg/registry/pkg/service"
+	"github.com/expandorg/registry/pkg/api/healthchecker"
+	"github.com/expandorg/registry/pkg/api/registrationfetcher"
+	"github.com/expandorg/registry/pkg/service"
 	"github.com/gorilla/mux"
 )
 

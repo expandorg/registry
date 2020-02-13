@@ -1,7 +1,7 @@
 package datastore
 
 import (
-	"github.com/gemsorg/registry/pkg/registration"
+	"github.com/expandorg/registry/pkg/registration"
 	"github.com/jmoiron/sqlx"
 )
 

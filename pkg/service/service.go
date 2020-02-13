@@ -1,10 +1,10 @@
 package service
 
 import (
-	"github.com/gemsorg/registry/pkg/authentication"
-	"github.com/gemsorg/registry/pkg/authorization"
-	"github.com/gemsorg/registry/pkg/datastore"
-	"github.com/gemsorg/registry/pkg/registration"
+	"github.com/expandorg/registry/pkg/authentication"
+	"github.com/expandorg/registry/pkg/authorization"
+	"github.com/expandorg/registry/pkg/datastore"
+	"github.com/expandorg/registry/pkg/registration"
 )
 
 type RegistryService interface {
