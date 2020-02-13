@@ -6,8 +6,8 @@ import (
 	"net/http"
 	"strconv"
 
-	"github.com/gemsorg/registry/pkg/apierror"
-	service "github.com/gemsorg/registry/pkg/service"
+	"github.com/expandorg/registry/pkg/apierror"
+	service "github.com/expandorg/registry/pkg/service"
 	kithttp "github.com/go-kit/kit/transport/http"
 	"github.com/gorilla/mux"
 )

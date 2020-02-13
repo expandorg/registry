@@ -6,4 +6,4 @@ steps:
   - id: Test
     name: 'gcr.io/cloud-builders/go'
     args: ['test','./...']
-    env: ['PROJECT_ROOT=github.com/gemsorg/registry']
+    env: ['PROJECT_ROOT=github.com/expandorg/registry']

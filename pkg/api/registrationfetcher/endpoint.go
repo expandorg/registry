@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 
-	"github.com/gemsorg/registry/pkg/apierror"
-	service "github.com/gemsorg/registry/pkg/service"
+	"github.com/expandorg/registry/pkg/apierror"
+	service "github.com/expandorg/registry/pkg/service"
 
 	"github.com/go-kit/kit/endpoint"
 )

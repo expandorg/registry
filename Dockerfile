@@ -1,10 +1,10 @@
 FROM golang:1.10-alpine AS build-stage
 
 RUN apk add --update make git
-RUN mkdir -p /go/src/github.com/gemsorg/registry
-WORKDIR /go/src/github.com/gemsorg/registry
+RUN mkdir -p /go/src/github.com/expandorg/registry
+WORKDIR /go/src/github.com/expandorg/registry
 
-COPY . /go/src/github.com/gemsorg/registry
+COPY . /go/src/github.com/expandorg/registry
 
 ARG GIT_COMMIT
 ARG VERSION
@@ -19,7 +19,7 @@ RUN apk --update add ca-certificates
 RUN mkdir /app
 WORKDIR /app
 
-COPY --from=build-stage  /go/src/github.com/gemsorg/registry/bin/registry .
+COPY --from=build-stage  /go/src/github.com/expandorg/registry/bin/registry .
 
 EXPOSE 8184
 
