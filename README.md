@@ -1,8 +1,15 @@
 # Registry Service
  
-Expand.org - Backend service for job external services registry. This allows 3rd party services to replace internal Expand.org services.
+[Expand](https://expand.org) believes in decentralization of code and infrastructure. 3rd parties (companies, requesters, etc.) can replace internal Expand services used in task assignment, verification, etc. This repo allows 3rd parties to register their new services with Expand so they can work hand in hand with our system.
 
-## Description
+## FAQ
+### What are services?
+[Expand](https://expand.org) is a micro task marketplace. You can break down what Expand does into various domains including: task assignment, task verification, task eligibility, etc. Services are self-contained applications that can perform an action needed in the Expand ecosystem
+
+### What is the purpose of this repo?
+This repo is how we register services. [API documentation](https://documenter.getpostman.com/view/7517177/SzKQzgQk)
+
+### How does it work?
 
 Each job can register its own external services. These services are stored as json, taking the following shape:
 
@@ -87,3 +94,14 @@ We keep all unit tests close to the code and withing the same package. For examp
 ### Functional
 
 We keep all functional tests in `tests/` folder. Create a new test file for every function. 
+
+## How to Contribute
+
+If you're interested in contributing to the registry service:
+
+ * Start by reading the [Contributing guide](CONTRIBUTING.md).
+
+## License
+
+Registry service is licensed under the [MPL-2](license) license
+
