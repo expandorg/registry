@@ -95,6 +95,17 @@ We keep all unit tests close to the code and withing the same package. For examp
 
 We keep all functional tests in `tests/` folder. Create a new test file for every function. 
 
+## CI / CD
+We use Google Cloud for CI/CD:
+
+*note: please don't modify the following files unless you know what you're doing :)*
+
+**cloudbuild.yaml:** this effectively our CI, it run tests on every PR and will ✓ or x.
+
+**cloudbuild.cd.yaml:** this effectively our CD, it run tests, builds and pushes the image to the container registry and deploys to production on every Master commit, so master has to be always clean. 
+
+**k8s.yaml:** this is the kubernetes setup, including workload and service setup. cloudbuild.cd uses this file to deploy.
+
 ## How to Contribute
 
 If you're interested in contributing to the registry service:
