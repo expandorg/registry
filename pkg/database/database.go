@@ -14,7 +14,7 @@ const connMaxLifetime = time.Second * 5
 func Connect() (*sqlx.DB, error) {
 	host := os.Getenv("REGISTRY_DB_HOST")
 	port := os.Getenv("REGISTRY_DB_PORT")
-	name := os.Getenv("REGISTRY_DB_NAME")
+	name := os.Getenv("REGISTRY_DB")
 	user := os.Getenv("REGISTRY_DB_USER")
 	password := os.Getenv("REGISTRY_DB_PASSWORD")
 	if password != "" {

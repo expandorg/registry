@@ -7,7 +7,7 @@ db=$3
 if [ "$action" = "composeup" ]; then
   /migrations/migrate \
     -source file:///migrations \
-    -database "mysql://$REGISTRY_DB_USER:$REGISTRY_DB_PASSWORD@tcp($REGISTRY_DB_HOST:$REGISTRY_DB_PORT)/$REGISTRY_DB_NAME" \
+    -database "mysql://$REGISTRY_DB_USER:$REGISTRY_DB_PASSWORD@tcp($REGISTRY_DB_HOST:$REGISTRY_DB_PORT)/$REGISTRY_DB" \
     up
   exit 0
 fi

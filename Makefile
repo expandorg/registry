@@ -76,12 +76,12 @@ build-migrations:
 run-migrations: build-migrations
 	docker run --network host registry-migration \
 	$(action) $(version) \
-	"mysql://$(REGISTRY_DB_USER):$(REGISTRY_DB_PASSWORD)@tcp($(REGISTRY_DB_HOST):$(REGISTRY_DB_PORT))/$(REGISTRY_DB_NAME)"
+	"mysql://$(REGISTRY_DB_USER):$(REGISTRY_DB_PASSWORD)@tcp($(REGISTRY_DB_HOST):$(REGISTRY_DB_PORT))/$(REGISTRY_DB)"
 
 migrate-latest: build-migrations
 	docker run --network host registry-migration \
 	goto $(LAST_MIGRATION) \
-	"mysql://$(REGISTRY_DB_USER):$(REGISTRY_DB_PASSWORD)@tcp($(REGISTRY_DB_HOST):$(REGISTRY_DB_PORT))/$(REGISTRY_DB_NAME)"
+	"mysql://$(REGISTRY_DB_USER):$(REGISTRY_DB_PASSWORD)@tcp($(REGISTRY_DB_HOST):$(REGISTRY_DB_PORT))/$(REGISTRY_DB)"
 
 db-seed:
 	@echo "Seeding db"
