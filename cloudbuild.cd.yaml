@@ -34,15 +34,15 @@ steps:
       sed "s/VERSION/${SHORT_SHA}/g;s/NAME/${_NAME}/g;s/MIGRATION/${_MIGRATION}/g;s/ORG/${PROJECT_ID}/g;s/ENV/${_ENV}/g;s/APP/${_APP}/g;s/DATA/${_DATA}/g" k8s.yaml > kubernetes.yaml
   
   # Jobs image field is immutable, we delete and recreate it with new image.
-  - id: Delete Migration Job
-    name: 'gcr.io/cloud-builders/kubectl'
-    args:
-    - 'delete'
-    - 'job'
-    - '${_MIGRATION}'
-    env:
-    - CLOUDSDK_COMPUTE_ZONE=$_ZONE
-    - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
+  # - id: Delete Migration Job
+  #   name: 'gcr.io/cloud-builders/kubectl'
+  #   args:
+  #   - 'delete'
+  #   - 'job'
+  #   - '${_MIGRATION}'
+  #   env:
+  #   - CLOUDSDK_COMPUTE_ZONE=$_ZONE
+  #   - CLOUDSDK_CONTAINER_CLUSTER=$_CLUSTER
     
   - id: Deploy
     name: 'gcr.io/cloud-builders/kubectl'
